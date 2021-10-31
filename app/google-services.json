@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "767748084523",
+    "project_id": "uber-f6573",
+    "storage_bucket": "uber-f6573.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767748084523:android:fa5fa7e9d84810bb186b6e",
+        "android_client_info": {
+          "package_name": "com.uber.leandrolara.cursoandroid.uber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "767748084523-0qvmtontl1nl7slokvkb89l5r2vfncmk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uber.leandrolara.cursoandroid.uber",
+            "certificate_hash": "1fd2022386b33af07a9250055d4129bc6407f39e"
+          }
+        },
+        {
+          "client_id": "767748084523-a4oe3jsqfujf3tlf1i2j9piijue0ej0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDOlVshl-NLY4TaOlJc4h7qWTAYktK6kY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "767748084523-a4oe3jsqfujf3tlf1i2j9piijue0ej0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
