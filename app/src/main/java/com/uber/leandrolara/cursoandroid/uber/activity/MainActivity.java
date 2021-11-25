@@ -1,10 +1,10 @@
 package com.uber.leandrolara.cursoandroid.uber.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,7 +20,7 @@ import com.uber.leandrolara.cursoandroid.uber.helper.UsuarioFirebase;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
-    private String [] permissoes = new String[]{
+    private String[] permissoes = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION
     };
 
@@ -31,21 +31,21 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        //Validar permissões
+        //validar permissões
         Permissoes.validarPermissoes(permissoes, this, 1);
 
         /*
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-        autenticacao.signOut(); */
+        autenticacao.signOut();*/
 
     }
 
-    public void abrirTelaLogin(View view) {
-        startActivity(new Intent(this, LoginActivity.class));
+    public void abrirTelaLogin(View view){
+        startActivity( new Intent(this, LoginActivity.class));
     }
 
     public void abrirTelaCadastro(View view){
-        startActivity(new Intent(this, CadastroActivity.class));
+        startActivity( new Intent(this, CadastroActivity.class));
     }
 
     @Override
@@ -58,17 +58,19 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        for (int permissaoResultado : grantResults) {
+        for(int permissaoResultado : grantResults){
             if( permissaoResultado == PackageManager.PERMISSION_DENIED){
                 alertaValidacaoPermissao();
             }
         }
+
     }
 
-    private void alertaValidacaoPermissao() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    private void alertaValidacaoPermissao(){
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         builder.setTitle("Permissões Negadas");
-        builder.setMessage("Para utiliza o app é necessário aceitar as permissões");
+        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
         builder.setCancelable(false);
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
@@ -76,8 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         AlertDialog dialog = builder.create();
         dialog.show();
+
     }
-    
+
 }

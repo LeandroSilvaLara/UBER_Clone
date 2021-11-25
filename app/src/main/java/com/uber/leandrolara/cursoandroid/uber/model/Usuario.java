@@ -4,7 +4,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.uber.leandrolara.cursoandroid.uber.config.ConfiguracaoFirebase;
 
+
 public class Usuario {
+
     private String id;
     private String nome;
     private String email;
@@ -18,10 +20,12 @@ public class Usuario {
     }
 
     public void salvar(){
+
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
         DatabaseReference usuarios = firebaseRef.child( "usuarios" ).child( getId() );
 
         usuarios.setValue(this);
+
     }
 
     public String getLatitude() {
@@ -64,7 +68,6 @@ public class Usuario {
         this.email = email;
     }
 
-    //Não será salvo senha usuario
     @Exclude
     public String getSenha() {
         return senha;

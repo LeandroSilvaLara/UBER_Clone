@@ -1,6 +1,8 @@
 package com.uber.leandrolara.cursoandroid.uber.model;
 
+
 public class Destino {
+
     private String rua;
     private String numero;
     private String cidade;

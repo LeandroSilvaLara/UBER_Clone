@@ -22,7 +22,7 @@ import com.uber.leandrolara.cursoandroid.uber.model.Usuario;
 
 public class UsuarioFirebase {
 
-    public static FirebaseUser getUsuarioAtual() {
+    public static FirebaseUser getUsuarioAtual(){
         FirebaseAuth usuario = ConfiguracaoFirebase.getFirebaseAutenticacao();
         return usuario.getCurrentUser();
     }
@@ -42,7 +42,7 @@ public class UsuarioFirebase {
 
     public static boolean atualizarNomeUsuario(String nome){
 
-        try{
+        try {
 
             FirebaseUser user = getUsuarioAtual();
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
@@ -51,8 +51,8 @@ public class UsuarioFirebase {
             user.updateProfile( profile ).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if ( !task.isSuccessful() ){
-                        Log.d("Perfil", "Erro ao atualizar nome perfil");
+                    if( !task.isSuccessful() ){
+                        Log.d("Perfil", "Erro ao atualizar nome de perfil.");
                     }
                 }
             });
@@ -63,22 +63,24 @@ public class UsuarioFirebase {
             e.printStackTrace();
             return false;
         }
+
     }
 
-    public static void redirecionaUsuarioLogado(Activity activity){
+    public static void redirecionaUsuarioLogado(final Activity activity){
 
         FirebaseUser user = getUsuarioAtual();
-        if (user != null){
+        if(user != null ){
             DatabaseReference usuariosRef = ConfiguracaoFirebase.getFirebaseDatabase()
                     .child("usuarios")
                     .child( getIdentificadorUsuario() );
             usuariosRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    Usuario usuario = snapshot.getValue( Usuario.class );
+                    Usuario usuario = dataSnapshot.getValue( Usuario.class );
+
                     String tipoUsuario = usuario.getTipo();
-                    if ( tipoUsuario.equals("M")) {
+                    if( tipoUsuario.equals("M") ){
                         Intent i = new Intent(activity, RequisicoesActivity.class);
                         activity.startActivity(i);
                     }else {
@@ -89,11 +91,10 @@ public class UsuarioFirebase {
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
             });
-
         }
 
     }
@@ -101,4 +102,5 @@ public class UsuarioFirebase {
     public static String getIdentificadorUsuario(){
         return getUsuarioAtual().getUid();
     }
+
 }
