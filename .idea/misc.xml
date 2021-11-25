@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Geolocalizacao/Uber/app/src/main/res/drawable/circulo_verde.xml" value="0.19166666666666668" />
         <entry key="..\:/Geolocalizacao/Uber/app/src/main/res/layout/activity_cadastro.xml" value="0.2851851851851852" />
         <entry key="..\:/Geolocalizacao/Uber/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Geolocalizacao/Uber/app/src/main/res/layout/activity_main.xml" value="0.2851851851851852" />
         <entry key="..\:/Geolocalizacao/Uber/app/src/main/res/layout/activity_maps.xml" value="0.30092592592592593" />
+        <entry key="..\:/Geolocalizacao/Uber/app/src/main/res/layout/activity_passageiro.xml" value="0.1" />
+        <entry key="..\:/Geolocalizacao/Uber/app/src/main/res/layout/content_activity_passageiro.xml" value="0.11296296296296296" />
+        <entry key="..\:/Geolocalizacao/Uber/app/src/main/res/menu/menu_main.xml" value="0.1" />
       </map>
     </option>
   </component>
