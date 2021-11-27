@@ -20,15 +20,15 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_corrida" />
+    <include layout="@layout/content_passageiro" />
 
     <Button
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:id="@+id/buttonAceitarCorrida"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:onClick="aceitarCorrida"
+        android:text="Aceitar corrida"
+        android:theme="@style/botaoPadrao" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
