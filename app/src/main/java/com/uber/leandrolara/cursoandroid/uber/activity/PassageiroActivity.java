@@ -78,9 +78,6 @@ public class PassageiroActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passageiro);
 
-        //Configurações iniciais
-        firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
-
         inicializarComponentes();
 
         //Adiciona listener para status da requisição
@@ -337,6 +334,7 @@ public class PassageiroActivity extends AppCompatActivity
 
         //Configurações iniciais
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+        firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -346,3 +344,4 @@ public class PassageiroActivity extends AppCompatActivity
     }
 
 }
+

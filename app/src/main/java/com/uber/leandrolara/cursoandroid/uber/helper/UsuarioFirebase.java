@@ -70,13 +70,14 @@ public class UsuarioFirebase {
 
         FirebaseUser user = getUsuarioAtual();
         if(user != null ){
+            Log.d("resultado", "onDataChange: " + getIdentificadorUsuario());
             DatabaseReference usuariosRef = ConfiguracaoFirebase.getFirebaseDatabase()
                     .child("usuarios")
                     .child( getIdentificadorUsuario() );
             usuariosRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-
+                    Log.d("resultado", "onDataChange: " + dataSnapshot.toString() );
                     Usuario usuario = dataSnapshot.getValue( Usuario.class );
 
                     String tipoUsuario = usuario.getTipo();

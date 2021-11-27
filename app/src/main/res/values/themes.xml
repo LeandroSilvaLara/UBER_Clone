@@ -17,7 +17,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="botaoPadrao" parent="Theme.AppCompat.Light" >
+    <style name="botaoPadrao" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">@color/colorPrimary</item>
         <item name="colorButtonNormal">@color/colorPrimaryDark</item>
         <item name="android:textColor">@android:color/white</item>
@@ -27,6 +27,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Uber.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
