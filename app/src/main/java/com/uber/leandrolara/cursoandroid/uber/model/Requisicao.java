@@ -3,6 +3,9 @@ package com.uber.leandrolara.cursoandroid.uber.model;
 import com.google.firebase.database.DatabaseReference;
 import com.uber.leandrolara.cursoandroid.uber.config.ConfiguracaoFirebase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Requisicao {
 
     private String id;
@@ -15,6 +18,8 @@ public class Requisicao {
     public static final String STATUS_A_CAMINHO = "acaminho";
     public static final String STATUS_VIAGEM = "viagem";
     public static final String STATUS_FINALIZADA = "finalizada";
+    public static final String STATUS_ENCERRADA = "encerrada";
+    public static final String STATUS_CANCELADA = "cancelada";
 
     public Requisicao() {
     }
@@ -30,6 +35,54 @@ public class Requisicao {
         requisicoes.child( getId() ).setValue(this);
 
     }
+
+    public void atualizar(){
+
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
+        DatabaseReference requisicoes = firebaseRef.child("requisicoes");
+
+        DatabaseReference requisicao = requisicoes.child(getId());
+
+        Map objeto = new HashMap();
+        objeto.put("motorista", getMotorista() );
+        objeto.put("status", getStatus());
+
+        requisicao.updateChildren( objeto );
+
+    }
+
+    public void atualizarStatus(){
+
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
+        DatabaseReference requisicoes = firebaseRef.child("requisicoes");
+
+        DatabaseReference requisicao = requisicoes.child(getId());
+
+        Map objeto = new HashMap();
+        objeto.put("status", getStatus());
+
+        requisicao.updateChildren( objeto );
+
+    }
+
+    public void atualizarLocalizacaoMotorista(){
+
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
+        DatabaseReference requisicoes = firebaseRef
+                .child("requisicoes");
+
+        DatabaseReference requisicao = requisicoes
+                .child(getId())
+                .child("motorista");
+
+        Map objeto = new HashMap();
+        objeto.put("latitude", getMotorista().getLatitude() );
+        objeto.put("longitude", getMotorista().getLongitude());
+
+        requisicao.updateChildren( objeto );
+
+    }
+
 
     public String getId() {
         return id;
@@ -71,4 +124,3 @@ public class Requisicao {
         this.destino = destino;
     }
 }
-

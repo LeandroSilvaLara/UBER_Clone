@@ -36,6 +36,7 @@ import com.uber.leandrolara.cursoandroid.uber.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class RequisicoesActivity extends AppCompatActivity {
 
     //Componentes
@@ -63,6 +64,47 @@ public class RequisicoesActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        verificaStatusRequisicao();
+    }
+
+    private void verificaStatusRequisicao(){
+
+        Usuario usuarioLogado = UsuarioFirebase.getDadosUsuarioLogado();
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
+
+        DatabaseReference requisicoes = firebaseRef.child("requisicoes");
+
+        Query requisicoesPesquisa = requisicoes.orderByChild("motorista/id")
+                .equalTo( usuarioLogado.getId() );
+
+        requisicoesPesquisa.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for( DataSnapshot ds: dataSnapshot.getChildren() ){
+
+                    Requisicao requisicao = ds.getValue( Requisicao.class );
+
+                    if( requisicao.getStatus().equals(Requisicao.STATUS_A_CAMINHO)
+                            || requisicao.getStatus().equals(Requisicao.STATUS_VIAGEM)
+                            || requisicao.getStatus().equals(Requisicao.STATUS_FINALIZADA)){
+                        motorista = requisicao.getMotorista();
+                        abrirTelaCorrida(requisicao.getId(), motorista, true);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     private void recuperarLocalizacaoUsuario() {
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -75,9 +117,17 @@ public class RequisicoesActivity extends AppCompatActivity {
                 String latitude = String.valueOf(location.getLatitude());
                 String longitude = String.valueOf(location.getLongitude());
 
+                //Atualizar GeoFire
+                UsuarioFirebase.atualizarDadosLocalizacao(
+                        location.getLatitude(),
+                        location.getLongitude()
+                );
+
                 if( !latitude.isEmpty() && !longitude.isEmpty() ){
                     motorista.setLatitude(latitude);
                     motorista.setLongitude(longitude);
+
+                    adicionaEventoCliqueRecyclerView();
                     locationManager.removeUpdates(locationListener);
                     adapter.notifyDataSetChanged();
                 }
@@ -132,6 +182,14 @@ public class RequisicoesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void abrirTelaCorrida(String idRequisicao, Usuario motorista, boolean requisicaoAtiva){
+        Intent i = new Intent(RequisicoesActivity.this, CorridaActivity.class );
+        i.putExtra("idRequisicao", idRequisicao );
+        i.putExtra("motorista", motorista );
+        i.putExtra("requisicaoAtiva", requisicaoAtiva );
+        startActivity( i );
+    }
+
     private void inicializarComponentes(){
 
         getSupportActionBar().setTitle("Requisições");
@@ -152,6 +210,12 @@ public class RequisicoesActivity extends AppCompatActivity {
         recyclerRequisicoes.setHasFixedSize(true);
         recyclerRequisicoes.setAdapter( adapter );
 
+        recuperarRequisicoes();
+
+    }
+
+    private void adicionaEventoCliqueRecyclerView(){
+
         //Adiciona evento de clique no recycler
         recyclerRequisicoes.addOnItemTouchListener(
                 new RecyclerItemClickListener(
@@ -161,10 +225,7 @@ public class RequisicoesActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(View view, int position) {
                                 Requisicao requisicao = listaRequisicoes.get(position);
-                                Intent i = new Intent(RequisicoesActivity.this, CorridaActivity.class );
-                                i.putExtra("idRequisicao", requisicao.getId() );
-                                i.putExtra("motorista", motorista );
-                                startActivity( i );
+                                abrirTelaCorrida(requisicao.getId(), motorista, false);
                             }
 
                             @Override
@@ -179,8 +240,6 @@ public class RequisicoesActivity extends AppCompatActivity {
                         }
                 )
         );
-
-        recuperarRequisicoes();
 
     }
 
@@ -203,6 +262,7 @@ public class RequisicoesActivity extends AppCompatActivity {
                     recyclerRequisicoes.setVisibility( View.GONE );
                 }
 
+                listaRequisicoes.clear();
                 for ( DataSnapshot ds: dataSnapshot.getChildren() ){
                     Requisicao requisicao = ds.getValue( Requisicao.class );
                     listaRequisicoes.add( requisicao );

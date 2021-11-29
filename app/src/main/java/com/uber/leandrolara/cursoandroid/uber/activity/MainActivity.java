@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void alertaValidacaoPermissao(){
 
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Permissões Negadas");
         builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
         builder.setCancelable(false);

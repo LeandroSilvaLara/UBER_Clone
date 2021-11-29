@@ -21,7 +21,6 @@ import com.uber.leandrolara.cursoandroid.uber.R;
 import com.uber.leandrolara.cursoandroid.uber.config.ConfiguracaoFirebase;
 import com.uber.leandrolara.cursoandroid.uber.helper.UsuarioFirebase;
 import com.uber.leandrolara.cursoandroid.uber.model.Usuario;
-
 public class CadastroActivity extends AppCompatActivity {
 
     private TextInputEditText campoNome, campoEmail, campoSenha;
